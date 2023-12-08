@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<style>
+table{
+  border:2px solid;
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+}
+td{
+  border:1px solid;
+}
+.option{
+  font-family: '함초롬돋움';
+  text-align:center;
+}
+button {
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 5px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+}
+#num{
+  width:110px;
+}
+#start{
+  width:312px;
+}
+#end{
+  width:238px;
+}
+</style>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <meta charset="utf-8">
+    </head>
+    <body class='option'>
+
+      <img src='/img' height="200" width="200">
+      <br>
+      버스 노선 검색 시스템
+      <br>
+      <div id = 'test'>
+
+      </div>
+
+        <br>
+        <% if(locals.data){ %>
+          <table>
+            <tr><td id = 'local'>지역<td id = 'num'>번호<td id = 'type1'>종류<td id = 'start'>기점<td id = 'end'>종점
+            <% for(let i=0;i<data.length;i++){ %>
+                <tr><td><%= data[i].city_name %>
+                    <td><%= data[i].routeno %>
+                    <td><%= data[i].routetp %>
+                    <td><%= data[i].startnodenm %>
+                    <td><%= data[i].endnodenm %>
+
+
+                      <br>
+            <% } %>
+          </table>
+        <% } %>
+
+    </body>
+    <script>
+var num = 0;
+function change(){
+    var test2;
+
+    if(num == 0){
+      num++;
+      num %= 2;
+      test2 = '<form action=\"/getnamedata\" method=\"GET\"><input type=\"text\" name= \"cityname\" placeholder=\'input\'><button type=\"submit\">데이터 불러오기</button></form><button onclick=\'change()\'>지역으로 검색하기</button>';
+    }
+
+    else if(num == 1){
+      num++;
+      num %= 2;
+      test2 = '<form action=\"/getnumdata\" method=\"GET\"><input type=\"text\" name= \"busnum\" placeholder=\'input\'><button type=\"submit\">데이터 불러오기</button></form><button onclick=\'change()\'>번호로 검색하기</button>';
+    }
+    document.getElementById('test').innerHTML = test2;
+
+}
+change();
+
+    </script>
+</html>
